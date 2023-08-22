@@ -1,8 +1,8 @@
 {
     "error": {
-        "code": -32007,
-        "message": "The session does not exist."
+        "code": -32152,
+        "message": "Headset is busy, please try again later."
     },
-    "id": 16,
+    "id": 5,
     "jsonrpc": "2.0"
 }
