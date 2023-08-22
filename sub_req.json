@@ -1,0 +1,8 @@
+{
+    "error": {
+        "code": -32007,
+        "message": "The session does not exist."
+    },
+    "id": 16,
+    "jsonrpc": "2.0"
+}
