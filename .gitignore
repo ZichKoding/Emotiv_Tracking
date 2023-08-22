@@ -7,3 +7,8 @@ template.yml
 train.py
 /train.py
 ./train.py
+
+
+.env
+/.env
+./.env
