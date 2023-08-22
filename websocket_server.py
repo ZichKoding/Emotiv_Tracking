@@ -2,14 +2,21 @@ import asyncio
 import json
 import time
 import os
+import threading
+import websocket
+import ssl
 from websockets.sync.client import connect
+from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 sesh = None
 cor_tok = None
-websocket_url = os.environ['WEBSOCKET_URL']
-client_id = os.environ['clientId']
-client_secret = os.environ['clientSecret']
-headset_name = os.environ['headset_name']
+websocket_url = os.getenv('WEBSOCKET_URL')
+client_id = os.getenv('clientId')
+client_secret = os.getenv('clientSecret')
+headset_name = os.getenv('headset_name')
 
 def create_session(cortex_token: str) -> None:
     global sesh
@@ -214,10 +221,21 @@ async def sub_request(cortex_token: str, session: str, stream: list):
             message = json.loads(message)
             json.dump(message, f, indent=4)
         
+        
+def on_message(ws, message):
+    print(message)
+        
 
 if __name__ == "__main__":
     hello()
     print("Session ID: ", sesh)
     print("Cortex Token: ", cor_tok)
         
-    license = os.environ['license']
+    license = os.getenv('license')
+    
+    # open connection for retrieving data from emotiv using websocket connection and threading.
+    websocket.enableTrace(True)
+    
+    ws = websocket.WebSocketApp(websocket_url,
+                                on_message = on_message)
+    ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, skip_utf8_validation=True, ping_interval=10, ping_timeout=8)
