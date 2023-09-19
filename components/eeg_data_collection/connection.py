@@ -1,6 +1,8 @@
 import os
+import sys
 
-from cortex import Cortex
+from cortex_v2.cortex import Cortex
+
 
 CLIENT_ID = os.environ.get('clientId')
 CLIENT_SECRET = os.environ.get('clientSecret')
