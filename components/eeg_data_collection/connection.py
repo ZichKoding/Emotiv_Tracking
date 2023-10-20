@@ -32,10 +32,10 @@ authorize = cortex.authorize()
 create_session = cortex.create_session()
 
 # subscribe data
-sub_req = cortex.sub_request(streams=['eeg', 'met'])
+sub_req = cortex.sub_request(streams=['sys', 'com'])
 
 # get data
-extract_data_labels = cortex.extract_data_labels(stream_name='eeg')
+# extract_data_labels = cortex.extract_data_labels(stream_name='com')
 
 
 close = cortex.close()

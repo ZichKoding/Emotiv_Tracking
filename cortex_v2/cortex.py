@@ -4,10 +4,20 @@ import json
 import ssl
 import time
 import sys
+import os
 from pydispatch import Dispatcher
 import warnings
 import threading
+import pandas as pd
+from dotenv import load_dotenv
 
+load_dotenv()
+
+CLIENT_ID = os.getenv('clientId')
+CLIENT_SECRET = os.getenv('clientSecret')
+WEBSOCKET_URL = os.getenv('WEBSOCKET_URL')
+HEADSET_NAME = os.getenv('headset_name')
+LICENSE = os.getenv('license')
 
 # define request id
 QUERY_HEADSET_ID                    =   1

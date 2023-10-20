@@ -1,12 +1,16 @@
 import cortex
 from cortex import Cortex
 import os
+import pandas as pd
+from dotenv import load_dotenv
 
-CLIENT_ID = os.environ.get('clientId')
-CLIENT_SECRET = os.environ.get('clientSecret')
-WEBSOCKET_URL = os.environ.get('WEBSOCKET_URL')
-HEADSET_NAME = os.environ.get('HEADSET_NAME')
-LICENSE = os.environ.get('license')
+load_dotenv()
+
+CLIENT_ID = os.getenv('clientId')
+CLIENT_SECRET = os.getenv('clientSecret')
+WEBSOCKET_URL = os.getenv('WEBSOCKET_URL')
+HEADSET_NAME = os.getenv('headset_name')
+LICENSE = os.getenv('license')
 
 class LiveAdvance():
     """
@@ -232,6 +236,17 @@ class LiveAdvance():
              the format such as {'action': 'neutral', 'power': 0.0, 'time': 1590736942.8479}
         """
         data = kwargs.get('data')
+        
+        # Format data for a csv file
+        csv_data = {
+            'action': data['action'],
+            'power': data['power'],
+            'time': data['time']
+        }
+        df = pd.DataFrame(csv_data, index=[0])
+        # store in csv file
+        df.to_csv('./data/Zichko_mental_command_data.csv', mode='a', header=False)
+        
         print('mc data: {}'.format(data))
 
     def on_get_mc_active_action_done(self, *args, **kwargs):
@@ -290,7 +305,7 @@ def main():
     l = LiveAdvance(your_app_client_id, your_app_client_secret)
     print(l)
 
-    trained_profile_name = 'zichko' # Please set a trained profile name here
+    trained_profile_name = 'Zichko' # Please set a trained profile name here
     l.start(trained_profile_name)
 
 if __name__ =='__main__':
