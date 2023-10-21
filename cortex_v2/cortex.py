@@ -82,8 +82,7 @@ class Cortex(Dispatcher):
         self.headset_id = ''
         self.debug = debug_mode
         self.debit = 10
-        self.license = ''
-
+        self.license = LICENSE
         if client_id == '':
             raise ValueError('Empty your_app_client_id. Please fill in your_app_client_id before running the example.')
         else:
@@ -96,9 +95,11 @@ class Cortex(Dispatcher):
 
         for key, value in kwargs.items():
             print('init {0} - {1}'.format(key, value))
-            if key == 'license':
-                self.license = value
-            elif key == 'debit':
+            # if key == 'license':
+            #     self.license = value
+            # elif key == 'debit':
+            #     self.debit == value
+            if key == 'debit':
                 self.debit == value
             elif  key == 'headset_id':
                 self.headset_id = value

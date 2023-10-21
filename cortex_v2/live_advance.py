@@ -3,6 +3,7 @@ from cortex import Cortex
 import os
 import pandas as pd
 from dotenv import load_dotenv
+import pyautogui as pag
 
 load_dotenv()
 
@@ -237,6 +238,16 @@ class LiveAdvance():
         """
         data = kwargs.get('data')
         
+        # Basic actions for now, will add more later if possible. 
+        if data['action'] == 'push' and data['power'] > 0.75:
+            pag.moveRel(0, -10)
+        elif data['action'] == 'pull' and data['power'] > 0.75:
+            pag.moveRel(0, 10)
+        elif data['action'] == 'left' and data['power'] > 0.75:
+            pag.moveRel(-10, 0)
+        elif data['action'] == 'right' and data['power'] > 0.75:
+            pag.moveRel(10, 0)
+        
         # Format data for a csv file
         csv_data = {
             'action': data['action'],
@@ -245,7 +256,7 @@ class LiveAdvance():
         }
         df = pd.DataFrame(csv_data, index=[0])
         # store in csv file
-        df.to_csv('./data/Zichko_mental_command_data.csv', mode='a', header=False)
+        df.to_csv('cortex_v2/data/Zichko_mental_command_data_with_my_licencse.csv', mode='a', header=False)
         
         print('mc data: {}'.format(data))
 
@@ -312,3 +323,4 @@ if __name__ =='__main__':
     main()
 
 # -----------------------------------------------------------
+# Refer to on_new_comm_data() to see how to get mental command data
